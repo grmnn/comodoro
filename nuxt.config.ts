@@ -49,6 +49,11 @@ export default defineNuxtConfig({
 		],
 	},
 	modules: ['@nuxt/eslint', '@vueuse/nuxt', '@pinia/nuxt'],
+	nitro: {
+		prerender: {
+			autoSubfolderIndex: false,
+		},
+	},
 	postcss: {
 		plugins: {
 			'@tailwindcss/postcss': {},

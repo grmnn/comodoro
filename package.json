@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
+		"build": "nuxt build",
 		"postinstall": "nuxt prepare",
 		"lint": "eslint . --fix"
 	},
