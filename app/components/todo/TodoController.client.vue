@@ -72,6 +72,10 @@ function deleteTodo(index: number) {
 	}
 }
 
+function clearTodos() {
+	todos.value = []
+}
+
 function checkTodo(index: number) {
 	if (!todos.value[index]) {
 		return
@@ -223,6 +227,12 @@ function onRightClick(e: MouseEvent, index: number) {
 		</form>
 		<div class="flex justify-between items-center mt-8 text-sm text-zinc-400 border-b border-zinc-700 pb-1 mx-2">
 			<span>Todos</span>
+			<button
+				class="text-zinc-100 hover:text-zinc-300 cursor-pointer"
+				@click="clearTodos"
+			>
+				Delete all
+			</button>
 		</div>
 		<ul
 			v-if="todos.length > 0"
