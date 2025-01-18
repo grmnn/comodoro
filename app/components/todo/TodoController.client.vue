@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components'
 import { useIDBKeyval } from '@vueuse/integrations/useIDBKeyval'
 
 interface Todo {
@@ -8,11 +9,7 @@ interface Todo {
 
 const { data: todos } = useIDBKeyval<Todo[]>('todos', [])
 
-const todoListEl = ref<HTMLElement>()
 const inputEl = ref<HTMLInputElement>()
-const editFormEl = ref<HTMLFormElement>()
-const contextMenuEl = ref<HTMLElement>()
-
 const focusedItemIndex = ref(-1)
 const inputFocused = ref(false)
 const newTodo = ref('')
@@ -191,19 +188,19 @@ function onMouseOut() {
 	focusedItemIndex.value = -1
 }
 
-onClickOutside(todoListEl, () => {
+function onTodoListClickOutside() {
 	focusedItemIndex.value = -1
-})
+}
 
-onClickOutside(editFormEl, () => {
+function onEditFormClickOutside() {
 	currentlyEditableTodoIndex.value = -1
 	editTodoText.value = ''
-})
+}
 
-onClickOutside(contextMenuEl, () => {
+function onContextMenuClickOutside() {
 	contextMenuVisible.value = false
 	contextMenuIndex.value = -1
-})
+}
 
 function onRightClick(e: MouseEvent, index: number) {
 	contextMenuVisible.value = true
@@ -236,7 +233,7 @@ function onRightClick(e: MouseEvent, index: number) {
 		</div>
 		<ul
 			v-if="todos.length > 0"
-			ref="todoListEl"
+			v-on-click-outside="onTodoListClickOutside"
 			class="flex flex-col mt-1"
 		>
 			<li
@@ -271,7 +268,7 @@ function onRightClick(e: MouseEvent, index: number) {
 
 					<form
 						v-else
-						ref="editFormEl"
+						v-on-click-outside="onEditFormClickOutside"
 						class="w-full"
 						@submit.prevent="updateTodoWithText(index, editTodoText)"
 					>
@@ -287,7 +284,7 @@ function onRightClick(e: MouseEvent, index: number) {
 
 		<div
 			v-if="contextMenuVisible"
-			ref="contextMenuEl"
+			v-on-click-outside="onContextMenuClickOutside"
 			class="fixed flex flex-col rounded-lg border border-zinc-700/80 bg-zinc-800/80 p-1 text-zinc-200 shadow-lg backdrop-blur-sm"
 			:style="{ top: `${contextMenuCords.y}px`, left: `${contextMenuCords.x}px` }"
 		>
