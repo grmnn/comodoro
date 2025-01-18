@@ -66,5 +66,8 @@ const { appState } = storeToRefs(settings)
 				/>
 			</div>
 		</div>
+		<div class="mt-10 border-t border-zinc-700/50 pt-4">
+			<SiteShortcuts />
+		</div>
 	</div>
 </template>

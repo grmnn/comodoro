@@ -28,9 +28,15 @@ if (import.meta.client) {
 	<NuxtRouteAnnouncer />
 	<SvgSprite />
 
-	<main class="flex flex-col flex-1">
+	<main class="flex flex-col flex-1 relative">
+		<BaseButton
+			class="absolute top-4 right-4"
+			@click="showModal = true"
+		>
+			Settings
+		</BaseButton>
 		<article class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-y-16 p-4">
-			<TimeController />
+			<TimeController @show-settings="showModal = true" />
 			<TodoController />
 		</article>
 		<LazyBaseModal v-model="showModal">
